@@ -109,16 +109,18 @@ public class BookingTDG {
             flag= stmt.executeUpdate();
             if(flag==1)
             {
-                int passport = 0;
-                String sql="select passport_number from passenger where passenger_id=?;";
+                String passport = "";
+                String sql="select Passport_Number from passenger where passenger_id=?;";
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1,id);
                 ResultSet rs= stmt.executeQuery();
-                while (rs.next())
-                    passport=rs.getInt(1);
+                while (rs.next()) {
+                    passport = rs.getString("Passport_Number");
+                }
+
                 sql="update booking set Passport_Number=?,Flight_Number=?,Passenger_ID=? where Booking_Reference=?;";
                 stmt = conn.prepareStatement(sql);
-                stmt.setInt(1,passport);
+                stmt.setString(1,passport);
                 stmt.setInt(2,flight_no);
                 stmt.setInt(3,id);
                 stmt.setString(4,randstr);

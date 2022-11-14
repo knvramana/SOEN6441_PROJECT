@@ -1,8 +1,7 @@
 package Observer;
-
 import java.util.*;
 
-public class PassengerToNotify {
+public class PassengerToNotify{
    private final List<List<Integer>> link1=new ArrayList<List<Integer>>();
 
     public void addPassengerToNotify(Integer flight_number,Integer passenger_id)
@@ -12,6 +11,7 @@ public class PassengerToNotify {
         link2.add(passenger_id);
         link1.add(link2);
     }
+
     public int removePassengerToNotify(int flight_number,int passenger_id)
     {
         for (int i=0;i<link1.size();i++)

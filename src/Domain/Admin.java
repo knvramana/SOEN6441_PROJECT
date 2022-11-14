@@ -1,7 +1,7 @@
 package Domain;
 
 public class Admin {
-    private String Firstname,Lastname,Username,Password;
+    private String Firstname,Lastname,Username,Password,DOB;
     private int Admin_ID;
 
     public void setFirstname(String firstname) {
@@ -42,5 +42,11 @@ public class Admin {
 
     public String getPassword() {
         return Password;
+    }
+    public String getDOB() {
+        return DOB;
+    }
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
     }
 }

@@ -5,6 +5,7 @@ import JDBCConnection.JDBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class FlightsTDG {
     private static FlightsTDG instance = null;
@@ -48,6 +49,7 @@ public class FlightsTDG {
     public int Add_Flight_Details(Flight flight) {
         int flag = 0;
         try {
+            Random rand=new Random();
             Connection conn = JDBConnection.getConnection();
             String statement = "insert into Flights values (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
@@ -62,6 +64,21 @@ public class FlightsTDG {
             stmt.setString(9,flight.getLayover_Location());
             stmt.setInt(10,flight.getLayover_Time());
             flag= stmt.executeUpdate();
+            if (flag==1)
+            {
+                int totmin=100;
+                int totmax=250;
+                int avamin=0;
+                int avamax=100;
+                int tot=(int)((Math.random()*(totmax-totmin))+totmin);
+                int ava=(int)((Math.random()*(avamax-avamin))+avamin);
+                statement = "insert into Availability values(?,?,?);";
+                stmt=conn.prepareStatement(statement);
+                stmt.setInt(1,flight.getFlight_Number());
+                stmt.setInt(2,tot);
+                stmt.setInt(3,ava);
+                flag= stmt.executeUpdate();
+            }
         } catch (Exception e) {
         }
         return flag;

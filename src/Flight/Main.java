@@ -191,7 +191,6 @@ public class Main {
                                 System.out.println("Enter a Flight Number to Book");
                                 flight_no=scan.nextInt();
                                 int flag2=availabilityTDG.reduceAvailableSeats(flight_no);
-                                System.out.println(flag2);
                                 if(flag2==1) {
                                     flag=bookingTDG.newFlightBooking(flight_no,id);
                                     if(flag==1) {

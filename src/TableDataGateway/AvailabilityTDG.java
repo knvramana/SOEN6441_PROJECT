@@ -32,7 +32,7 @@ public class AvailabilityTDG {
                 availability.setTotal_No_of_Seats(rs.getInt(2));
                 availability.setAvaliable_No_of_Seats(rs.getInt(3));
             }
-        }catch (Exception e) {}
+        }catch (Exception ignored) {}
         return availability;
     }
     public int reduceAvailableSeats(int flight_no)
@@ -44,7 +44,7 @@ public class AvailabilityTDG {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1,flight_no);
             flag=stmt.executeUpdate();
-        }catch (Exception e) {}
+        }catch (Exception ignored) {}
         return flag;
     }
 }
