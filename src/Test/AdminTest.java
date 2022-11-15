@@ -1,4 +1,8 @@
 package Test;
+
+/*
+This a Junit test module for performing the unit test on the admin module
+ */
 import Domain.Admin;
 
 import TableDataGateway.AdminTDG;

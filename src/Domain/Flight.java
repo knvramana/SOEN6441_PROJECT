@@ -1,3 +1,8 @@
+/*
+This file consists of Domain Flight class which implements the getters and setters.
+
+As class members are private we can access the variables only through getters and setters.
+ */
 package Domain;
 
 public class Flight {

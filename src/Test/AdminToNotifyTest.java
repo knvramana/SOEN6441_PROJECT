@@ -1,4 +1,7 @@
 package Test;
+/*
+This a Junit test module for performing the unit test on the AdminToNotify module
+ */
 import Observer.AdminToNotify;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

@@ -1,6 +1,7 @@
 package Test;
-
-import Domain.Admin;
+/*
+This a Junit test module for performing the unit test on the Flights module
+ */
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class FlightsTest {
 
     @BeforeEach
     void init(){
-        flightsTDG = flightsTDG.getInstance();
+        flightsTDG = FlightsTDG.getInstance();
         flightTest =flightsTDG.View_flight_details();
 
     }

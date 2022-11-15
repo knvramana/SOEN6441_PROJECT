@@ -1,5 +1,7 @@
 package Test;
-
+/*
+This a Junit test module for performing the unit test on the Availability module
+ */
 import Domain.Availability;
 import TableDataGateway.AvailabilityTDG;
 import org.junit.jupiter.api.BeforeEach;

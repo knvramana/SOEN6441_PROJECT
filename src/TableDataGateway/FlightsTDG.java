@@ -1,11 +1,15 @@
 package TableDataGateway;
+/*
+This is Table Data gateway implementation for the Flights module.
+
+This class uses Singleton pattern
+ */
 import Domain.Flight;
 import JDBCConnection.JDBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class FlightsTDG {
     private static FlightsTDG instance = null;
@@ -19,7 +23,7 @@ public class FlightsTDG {
         }
         return instance;
     }
-
+// this method is used for viewing the flight data without taking any parameter and returns list of flight objects
     public List<Flight> View_flight_details() {
         List<Flight> flight = new ArrayList<>();
         try {
@@ -42,14 +46,15 @@ public class FlightsTDG {
                 flight.add(flight_details);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Please Try Again");
         }
         return flight;
     }
-
+//This method will take a flight object as a parameter and inserts them into the flight database
     public int Add_Flight_Details(Flight flight) {
-        int flag = 0;
+        int flag;
         try {
-            Random rand=new Random();
             Connection conn = JDBConnection.getConnection();
             String statement = "insert into Flights values (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
@@ -80,13 +85,16 @@ public class FlightsTDG {
                 flag= stmt.executeUpdate();
             }
         } catch (Exception e) {
+            flag=0;
+            e.printStackTrace();
+            System.out.println("Please Try Again");
         }
         return flag;
     }
-
+//This method is used for modifying  the flight details by flight object as parameter and modifies in database
     public int modify_flight_details(Flight flight)
     {
-        int flag = 0;
+        int flag ;
         try{
             Connection conn = JDBConnection.getConnection();
             String statement = "update flights set Airline=?,Orgin=?,Destination=?,Arrival_Time=?,Departure_Time=?,AirTime=?,Date=?,Layover_Location=?,Layover_Time=? where Flight_Number=?;";
@@ -103,6 +111,9 @@ public class FlightsTDG {
             stmt.setInt(10,flight.getFlight_Number());
             flag= stmt.executeUpdate();
         }catch (Exception e) {
+            flag=0;
+            e.printStackTrace();
+            System.out.println("Please Try Again");
         }
         return flag;
     }

@@ -1,14 +1,17 @@
+/*
+This is Table Data gateway implementation for the Admin module.
+
+This class uses Singleton pattern
+ */
 package TableDataGateway;
 import Domain.Admin;
 import JDBCConnection.JDBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class AdminTDG {
     private static AdminTDG instance = null;
@@ -21,6 +24,7 @@ public class AdminTDG {
         return instance;
     }
 
+    //returns the list of admin credentials for login
     public List<Admin> Admin_Login()
     {
         List<Admin> admin = new ArrayList<>();
@@ -39,6 +43,9 @@ public class AdminTDG {
                 admin.add(admin_details);
             }
         } catch (Exception e) {
+            admin=null;
+            e.printStackTrace();
+            System.out.println("Please Try Again");
         }
         return admin;
     }

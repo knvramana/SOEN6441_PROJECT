@@ -1,4 +1,7 @@
 package Test;
+/*
+This a Junit test module for performing the unit test on the PassengerToNotify module
+ */
 import Observer.PassengerToNotify;
 import org.junit.jupiter.api.BeforeEach;
 

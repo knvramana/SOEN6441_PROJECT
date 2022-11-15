@@ -1,4 +1,7 @@
 package Test;
+/*
+This a Junit test module for performing the unit test on the Booking module
+ */
 import Domain.Booking;
 import TableDataGateway.BookingTDG;
 import org.junit.jupiter.api.BeforeEach;

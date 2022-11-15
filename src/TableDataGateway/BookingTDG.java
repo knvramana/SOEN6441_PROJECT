@@ -1,5 +1,9 @@
 package TableDataGateway;
+/*
+This is Table Data gateway implementation for the Booking module.
 
+This class uses Singleton pattern
+ */
 import Domain.Booking;
 import Domain.Flight;
 import Domain.Passenger;
@@ -25,6 +29,7 @@ public class BookingTDG {
         return instance;
     }
 
+    //This method is used for viewing the booking details of a passenger by taking passenger ID as input and returns list of booking object
     public List<Booking> View_booking_details(int id) {
         List<Booking> booking = new ArrayList<>();
         try {
@@ -56,9 +61,11 @@ public class BookingTDG {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Please Try Again");
         }
         return booking;
     }
+    //This method allows the admin to check the newly booked flights by the passenger
     public List<Booking> ViewNewlyBookedFlights(List<List<Integer>> data)
     {
         List<Booking> booking = new ArrayList<>();
@@ -93,12 +100,14 @@ public class BookingTDG {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("Please Try Again");
                 }
         }
         return booking;
     }
+    //This method will take flight number and passenger id as an input and inserts a new row for them into the booking database
     public int newFlightBooking(int flight_no,int id){
-        int flag = 0;
+        int flag;
         try {
             UUID randomUUID = UUID.randomUUID();
             String randstr=randomUUID.toString().replaceAll("-", "").substring(0,5);
@@ -128,13 +137,15 @@ public class BookingTDG {
                 return flag;
             }
         }catch (Exception e) {
+            flag=0;
             e.printStackTrace();
+            System.out.println("Please Try Again");
         }
         return flag;
     }
+    //This method returns a list of passenger ID's for the respective flight number
     public List<Integer> getPassengerIDs(int flight_number){
-        List<Integer> Ids=new ArrayList<Integer>();
-        int flag=0,i=0;
+        List<Integer> Ids=new ArrayList<>();
         try {
             Connection conn = JDBConnection.getConnection();
             String sql = "select passenger_id from booking where flight_number=?;";
@@ -147,6 +158,7 @@ public class BookingTDG {
             }
         }catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Please Try Again");
         }
         return Ids;
     }

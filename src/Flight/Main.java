@@ -1,3 +1,7 @@
+/*
+This file consists of Main class which implements the project logic in a menu-driven style.
+
+ */
 package Flight;
 import Domain.Admin;
 import Domain.Availability;
@@ -22,12 +26,15 @@ public class Main {
             choice = scan.nextInt();
             switch (choice) {
                 case 1:
+                    //Admin Module
                     int status = 0;
+                    //Admin Login
                     System.out.println("Enter Admin Username");
                     scan.nextLine();
                     String user = scan.nextLine();
                     System.out.println("Enter Password");
                     String password = scan.nextLine();
+                    //Admin Login Authentication
                     AdminTDG adminTDG = AdminTDG.getInstance();
                     List<Admin> admin = adminTDG.Admin_Login();
                     for (Admin ad : admin) {
@@ -38,6 +45,7 @@ public class Main {
                         }
                     }
                     if (status == 1) {
+                        //View All flight booking option.
                         int choice2;
                         FlightsTDG flightsTDG = FlightsTDG.getInstance();
                         BookingTDG bookingTDG=BookingTDG.getInstance();
@@ -58,6 +66,7 @@ public class Main {
                                     break;
                                 case 2:
                                     Flight flight = new Flight();
+                                    //Option to add new flight into the database.
                                     System.out.println("Enter Flight Details as -> Flight_Number,Airline,Origin,Destination,Arrival_Time,Departure_Time,Airtime,Date,Layover_Location, Layover_Time");
                                     scan.nextLine();
                                     String f = scan.nextLine();
@@ -81,6 +90,7 @@ public class Main {
                                     break;
                                 case 3:
                                     flight = new Flight();
+                                    //Option to modify existing Flight Details
                                     System.out.println("Enter Flight Number");
                                     flight.setFlight_Number(scan.nextInt());
                                     System.out.println("Enter Flight Details as ->Airline,Origin,Destination,Arrival_Time,Departure_Time,Airtime,Date,Layover_Location, Layover_Time");
@@ -99,6 +109,7 @@ public class Main {
                                     flag = flightsTDG.modify_flight_details(flight);
                                     if (flag == 1) {
                                         System.out.println("Flight Details Modified Successfully\n");
+                                        //Notifies Passengers with the modified flight details
                                         List<Integer> NotifyIds=bookingTDG.getPassengerIDs(flight.getFlight_Number());
                                         for(int id: NotifyIds){
                                             notify1.addPassengerToNotify(flight.getFlight_Number(),id);
@@ -109,6 +120,7 @@ public class Main {
                                     break;
                                 case 4:
                                     AvailabilityTDG availabilityTDG=AvailabilityTDG.getInstance();
+                                    //To get available number of seats of a flight that exists in database
                                     System.out.println("Enter Flight Number");
                                     int flight_No=scan.nextInt();
                                     Availability availability=availabilityTDG.viewAvailableSeats(flight_No);
@@ -122,6 +134,7 @@ public class Main {
                                     break;
                                 case 5:
                                     List<Booking> bookings=bookingTDG.ViewNewlyBookedFlights(notify2.AfterNotify());
+                                    //Notifies the admin when passenger makes new bookings
                                     if(bookings.size()==0) {
                                         System.out.println("No New Flights are Booked by Passengers\n");
                                         break;
@@ -144,12 +157,14 @@ public class Main {
                     break;
                 case 2:
                     int choice3;
+                    //Passenger Module
                     do {
                         BookingTDG bookingTDG=BookingTDG.getInstance();
                         System.out.println("1.View upcoming Booking\n2.New Booking\n3.Exit\n");
                         choice3 = scan.nextInt();
                         switch (choice3) {
                             case 1:
+                                //Views the upcoming bookings of a passenger
                                 System.out.println("Enter Passenger ID");
                                 int id=scan.nextInt();
                                 List<Booking> bookings=bookingTDG.View_booking_details(id);
@@ -162,6 +177,7 @@ public class Main {
                                 System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                                 System.out.format("%6s%14s%12s%12s%18s%25s%15s%11s%30s%19s%10s%17s\n", "Booking ID","Passenger ID", "First Name","Last Name","Passport Number","Flight Number","Airline" , "Date" , "Departure Time" , "Arrival Time" , "Origin" , "Destination");
                                 System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                                //Whenever the admin modifies the flight details.If passenger has booking with that flight he will be notified with a message along with the flight number
                                 for (Booking booking : bookings) {
                                     if(notify1.removePassengerToNotify(booking.getFlight().getFlight_Number(),booking.getPassenger().getPassenger_ID())==1)
                                         flight_no=booking.getFlight().getFlight_Number();
@@ -175,7 +191,9 @@ public class Main {
                                 break;
                             case 2:
                                 int flag;
+                                //Checks the availability before there is a new booking made by the passenger
                                 AvailabilityTDG availabilityTDG=AvailabilityTDG.getInstance();
+                                //Adds the new booking details made by the passenger
                                 FlightsTDG flightsTDG = FlightsTDG.getInstance();
                                 System.out.println("Enter Passenger ID");
                                 id=scan.nextInt();
